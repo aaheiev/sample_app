@@ -12,6 +12,7 @@ gem 'jbuilder',   '2.11.2'
 gem 'bootsnap',   '1.7.5', require: false
 gem 'redis',      '4.2.5'
 gem 'bcrypt',     '3.1.16'
+gem 'rexml',      '3.2.5'
 
 # Use Active Storage variant
 # gem 'image_processing', '1.12.1'
