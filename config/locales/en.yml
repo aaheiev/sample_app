@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  user_mailer:
+    account_activation:
+      subject: Account activation
+    password_reset:
+      subject: Password reset
