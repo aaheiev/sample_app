@@ -81,4 +81,7 @@ Rails.application.configure do
 
   # Allow connections to local server.
   config.hosts.clear
+
+  config.lograge.enabled = true
+  config.lograge.ignore_actions = [Healthcheck::CONTROLLER_ACTION]
 end
