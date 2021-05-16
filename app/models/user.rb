@@ -45,12 +45,6 @@ class User < ApplicationRecord
   end
 
   # Returns true if the given token matches the digest.
-  # def authenticated?(remember_token)
-  #   return false if remember_digest.nil?
-  #   BCrypt::Password.new(remember_digest).is_password?(remember_token)
-  # end
-
-  # Returns true if the given token matches the digest.
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
@@ -89,9 +83,8 @@ class User < ApplicationRecord
   end
 
   # Defines a proto-feed.
-  # See "Following users" for the full implementation.
   def feed
-    Micropost.where("user_id = ?", id)
+    Micropost.where("user_id IN (?) OR user_id = ?", following_ids, id)
   end
 
   # Follows a user.
