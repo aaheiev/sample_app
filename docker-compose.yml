@@ -25,87 +25,43 @@ version: "3.8"
 secrets:
   db_pass:
     file: secrets/db_pass
-  mysql_root_pass:
-    file: secrets/mysql_root_pass
 
-volumes:
-  mysql_data:
+#volumes:
+#  postgres_data:
 
 services:
 
-  redis:
-    image:                      redis:6-alpine
+#  redis:
+#    image:                      redis:6-alpine
+#    ports:
+#      - 6379:6379
+#    healthcheck:
+#      test:                     [ "CMD", "redis-cli", "ping" ]
+#      interval:                 5s
+#      timeout:                  30s
+#      retries:                  50
+#    restart:                    unless-stopped
+  mailcatcher:
+    image:                      schickling/mailcatcher
     ports:
-      - 6379:6379
-    healthcheck:
-      test:                     [ "CMD", "redis-cli", "ping" ]
-      interval:                 5s
-      timeout:                  30s
-      retries:                  50
-    restart:                    unless-stopped
-
-  mysql:
-    image:                      mysql:8.0
+      - 1025:1025
+      - 1080:1080
+  postgres:
+    image:                      postgres:13-alpine
     environment:
-      MYSQL_DATABASE:           sample_app
-      MYSQL_USER:               sample_app
-      MYSQL_PASSWORD_FILE:      /run/secrets/db_pass
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_pass
+      POSTGRES_USER:            sample_app
+      POSTGRES_PASSWORD_FILE:   /run/secrets/db_pass
+      POSTGRES_DB:              sample_app
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./data/postgres:/var/lib/postgresql/data
+#      - postgres_data:/var/lib/postgresql/data
     ports:
-      - 3306:3306
+      - 5432:5432
     secrets:
-      - mysql_root_pass
       - db_pass
     healthcheck:
-      test:                     [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      interval:                 5s
-      timeout:                  20s
-      retries:                  10
-    restart:                    unless-stopped
-
-#  airflow-webserver:
-#    <<: *airflow-common
-#    command: webserver
-#    ports:
-#      - 8080:8080
-#    healthcheck:
-#      test:     [ "CMD", "curl", "--fail", "http://localhost:8080/health" ]
-#      interval: 10s
-#      timeout:  10s
-#      retries:  5
-#    restart:    unless-stopped
-#
-#  airflow-scheduler:
-#    <<: *airflow-common
-#    command: scheduler
-#    restart: always
-###  docker-compose --scale airflow-worker=3
-###  docker-compose up -d --scale airflow-worker=7 --no-recreate
-#  airflow-worker:
-#    <<: *airflow-common
-#    command: celery worker
-#    restart: always
-#
-#  airflow-init:
-#    <<: *airflow-common
-#    command: version
-#    environment:
-#      <<: *airflow-common-env
-#      _AIRFLOW_DB_UPGRADE:        'true'
-#      _AIRFLOW_WWW_USER_CREATE:   'true'
-#      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
-#      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
-#
-#  flower:
-#    <<: *airflow-common
-#    command: celery flower
-#    ports:
-#      - 5555:5555
-#    healthcheck:
-#      test:     [ "CMD", "curl", "--fail", "http://localhost:5555/" ]
-#      interval: 10s
-#      timeout:  10s
-#      retries:  5
-#    restart:    unless-stopped
+      test: [ "CMD", "pg_isready", "-U", "sample_app" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped

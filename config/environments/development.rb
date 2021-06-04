@@ -34,10 +34,22 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
+
   host = '127.0.0.1:3000' # Don't use this literally; use your local dev host instead
+
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => 'apikey',
+    :password       => ENV['SENDGRID_API_KEY'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
+  }
   # Use this on the cloud IDE.
   # config.action_mailer.default_url_options = { host: host, protocol: 'https' }
   # Use this if developing on localhost.

@@ -23,9 +23,11 @@ gem 'bootsnap',                   '1.7.5', require: false
 gem 'redis',                      '4.2.5'
 gem 'bcrypt',                     '3.1.16'
 gem 'rexml',                      '3.2.5'
+gem 'pg',                         '1.2.3'
+
 group :development, :test do
   gem 'sqlite3',                  '1.4.2'
-  gem 'mysql2',                   '0.5.3'
+  # gem 'mysql2',                   '0.5.3'
   gem 'byebug',                   '11.1.3', platforms: [:mri, :mingw, :x64_mingw]
 end
 
@@ -49,7 +51,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg',                       '1.2.3'
   gem 'aws-sdk-s3',               '1.94.1', require: false
 end
 
