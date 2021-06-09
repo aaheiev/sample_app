@@ -92,4 +92,5 @@ Rails.application.configure do
 
   config.lograge.enabled = true
   config.lograge.ignore_actions = [Healthcheck::CONTROLLER_ACTION]
+
 end

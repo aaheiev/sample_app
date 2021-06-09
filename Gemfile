@@ -24,10 +24,15 @@ gem 'redis',                      '4.2.5'
 gem 'bcrypt',                     '3.1.16'
 gem 'rexml',                      '3.2.5'
 gem 'pg',                         '1.2.3'
+gem 'redis',                      '4.2.5'
+gem 'hiredis',                    '0.6.3'
+gem 'redis-namespace',            '1.8.1'
+gem 'redis-rails',                '5.0.2'
 
 group :development, :test do
   gem 'sqlite3',                  '1.4.2'
   # gem 'mysql2',                   '0.5.3'
+  gem 'dotenv-rails',             '2.7.6'
   gem 'byebug',                   '11.1.3', platforms: [:mri, :mingw, :x64_mingw]
 end
 

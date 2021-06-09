@@ -31,21 +31,23 @@ secrets:
 
 services:
 
-#  redis:
-#    image:                      redis:6-alpine
-#    ports:
-#      - 6379:6379
-#    healthcheck:
-#      test:                     [ "CMD", "redis-cli", "ping" ]
-#      interval:                 5s
-#      timeout:                  30s
-#      retries:                  50
-#    restart:                    unless-stopped
+  redis:
+    image:                      redis:6-alpine
+    ports:
+      - 6379:6379
+    healthcheck:
+      test:                     [ "CMD", "redis-cli", "ping" ]
+      interval:                 5s
+      timeout:                  30s
+      retries:                  50
+    restart:                    unless-stopped
+
   mailcatcher:
     image:                      schickling/mailcatcher
     ports:
       - 1025:1025
       - 1080:1080
+
   postgres:
     image:                      postgres:13-alpine
     environment:
