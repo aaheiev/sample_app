@@ -33,8 +33,8 @@ docker build \
   --build-arg commit_id=${git_commit_id}  \
   -t sample_app:$assembly_version .
 
-docker scan sample_app:$assembly_version
-scan_result=$?
-echo "scan_result = $scan_result"
+#docker scan sample_app:$assembly_version
+#scan_result=$?
+#echo "scan_result = $scan_result"
 
 docker tag sample_app:$assembly_version sample_app:latest

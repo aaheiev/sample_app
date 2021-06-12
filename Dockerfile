@@ -16,8 +16,8 @@ WORKDIR /app
 COPY . .
 
 RUN addgroup app && adduser -D -G app app
-RUN apk add --no-cache curl nodejs npm postgresql-libs sqlite-libs
-RUN apk add --no-cache --virtual=.build-deps git openssh-client build-base sqlite-libs sqlite-dev sqlite postgresql-dev
+RUN apk add --no-cache curl nodejs npm postgresql-libs
+RUN apk add --no-cache --virtual=.build-deps git openssh-client build-base postgresql-dev
 
 #Installing bundler without versioning could break things.
 RUN  npm install --global yarn

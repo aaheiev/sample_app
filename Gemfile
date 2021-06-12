@@ -29,7 +29,7 @@ gem 'tzinfo-data',                '1.2021.1'
 gem 'rails-healthcheck',          '1.4.0'
 
 group :development, :test do
-  gem 'sqlite3',                  '1.4.2'
+  # gem 'sqlite3',                  '1.4.2'
   # gem 'mysql2',                   '0.5.3'
   gem 'dotenv-rails',             '2.7.6'
   gem 'byebug',                   '11.1.3', platforms: [:mri, :mingw, :x64_mingw]
