@@ -1,0 +1,74 @@
+---
+version:                      "3.8"
+
+secrets:
+  db_pass:
+    file:                     secrets/db_pass
+
+services:
+
+  redis:
+    image:                    redis:6-alpine
+    ports:
+      - 6379:6379
+    healthcheck:
+      test:                   [ "CMD", "redis-cli", "ping" ]
+      interval:               5s
+      timeout:                30s
+      retries:                50
+    restart:                  unless-stopped
+
+  mailcatcher:
+    image:                    schickling/mailcatcher
+    ports:
+      - 1025:1025
+      - 1080:1080
+
+  postgres:
+    image:                    postgres:13-alpine
+    environment:
+      POSTGRES_USER:          sample_app
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_pass
+      POSTGRES_DB:            sample_app
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+#      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    secrets:
+      - db_pass
+    healthcheck:
+      test:                   [ "CMD", "pg_isready", "-U", "sample_app" ]
+      interval:               5s
+      timeout:                5s
+      retries:                5
+    restart:                  unless-stopped
+
+  app:
+    image:                    sample_app:latest
+  #    stdin_open:               true
+  #    tty:                      true
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      DB_NAME:                sample_app
+      DB_USER:                sample_app
+      DB_HOST:                postgres
+      DB_PASS_FILE:           /run/secrets/db_pass
+      REDIS_DB:               0
+      REDIS_PORT:             6379
+      REDIS_URL:              redis://redis
+      RAILS_ENV:              test
+    secrets:
+      - db_pass
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    healthcheck:
+      test:                   [ "CMD", "curl", "-f", "http://127.0.0.1:3000/health" ]
+      interval:               5s
+      timeout:                5s
+      retries:                5
+    restart:                  unless-stopped

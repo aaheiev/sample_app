@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
+ruby '3.0.1'
 
 gem 'rails',                      '6.1.3.2'
 gem 'lograge',                    '0.11.2'
-gem 'rails-healthcheck',          '1.3.0'
 gem 'image_processing',           '1.12.1'
 gem 'mini_magick',                '4.11.0'
 gem 'active_storage_validations', '0.9.3'
@@ -20,14 +19,14 @@ gem 'webpacker',                  '5.3.0'
 gem 'turbolinks',                 '5.2.1'
 gem 'jbuilder',                   '2.11.2'
 gem 'bootsnap',                   '1.7.5', require: false
-gem 'redis',                      '4.2.5'
-gem 'bcrypt',                     '3.1.16'
 gem 'rexml',                      '3.2.5'
 gem 'pg',                         '1.2.3'
 gem 'redis',                      '4.2.5'
 gem 'hiredis',                    '0.6.3'
 gem 'redis-namespace',            '1.8.1'
 gem 'redis-rails',                '5.0.2'
+gem 'tzinfo-data',                '1.2021.1'
+gem 'rails-healthcheck',          '1.4.0'
 
 group :development, :test do
   gem 'sqlite3',                  '1.4.2'
