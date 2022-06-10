@@ -1,5 +1,5 @@
 # docker build -t sample_app:latest .
-FROM ruby:3.0.1-alpine
+FROM ruby:3.0.2-alpine
 
 ARG assembly_version=0.0.0.0
 ARG http_port=3000
