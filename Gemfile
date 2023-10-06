@@ -3,11 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.1'
 
-gem 'rails',                      '6.1.3.2'
-gem 'lograge',                    '0.11.2'
+gem 'rails', '7.1.0'
+gem 'lograge', '0.12.0'
 gem 'image_processing',           '1.12.1'
 gem 'mini_magick',                '4.11.0'
-gem 'active_storage_validations', '0.9.3'
+gem 'active_storage_validations', '0.9.6'
 gem 'bcrypt',                     '3.1.16'
 gem 'faker',                      '2.17.0'
 gem 'will_paginate',              '3.3.0'
@@ -15,7 +15,7 @@ gem 'bootstrap-will_paginate',    '1.0.0'
 gem 'bootstrap-sass',             '3.4.1'
 gem 'puma',                       '5.3.0'
 gem 'sass-rails',                 '6.0.0'
-gem 'webpacker',                  '5.3.0'
+gem 'webpacker', '5.4.0'
 gem 'turbolinks',                 '5.2.1'
 gem 'jbuilder',                   '2.11.2'
 gem 'bootsnap',                   '1.7.5', require: false
@@ -31,12 +31,12 @@ gem 'rails-healthcheck',          '1.4.0'
 group :development, :test do
   # gem 'sqlite3',                  '1.4.2'
   # gem 'mysql2',                   '0.5.3'
-  gem 'dotenv-rails',             '2.7.6'
+  gem 'dotenv-rails', '2.8.0'
   gem 'byebug',                   '11.1.3', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
-  gem 'web-console',              '4.1.0'
+  gem 'web-console', '4.2.0'
   gem 'listen',                   '3.5.1'
   gem 'spring',                   '2.1.1'
   gem 'spring-watcher-listen',    '2.0.1'
